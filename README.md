@@ -1,3 +1,3 @@
 
-## exercise
+## Exercise
 ![exercise](Exercise.png)
