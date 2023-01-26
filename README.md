@@ -1,3 +1,3 @@
 
 ## exercise
-![Screenshot](Exercise.PNG)
+![exercise](Exercise.png)
