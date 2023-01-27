@@ -8,8 +8,11 @@ var grid = new int[4, 3]
     { 0, 0, 0 }
 };
 var board = new Board(grid);
+Console.WriteLine("Input:");
 Console.WriteLine(board.ToString());
+
 var currentState = board.GetCurrentState();
+Console.WriteLine("Output:");
 Console.WriteLine(board.ToString());
 
 //board.ChangeCellState(new BordCell(1, 1, CellStateTypes.Live));
