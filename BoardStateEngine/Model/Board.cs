@@ -4,74 +4,84 @@ namespace BoardStateEngine.Model
 {
     public class Board
     {
-        private readonly Cell[,] _grid;
-        private readonly Dictionary<CellState, IBoardRule> _boardRules;
+        private readonly Dictionary<Cell, BordCell> _grid;
+        private readonly Dictionary<CellStateTypes, IBoardRule> _boardRules;
         private readonly int _rowsLength;
         private readonly int _colsLength;
 
-        private readonly static int[] OffsetVertical = { -1, -1, 0, 1, 1, 1, 0, -1 };
-        private readonly static int[] OffsetHrizontal = { 0, 1, 1, 1, 0, -1, -1, -1 };
-        public Board(Cell[,] grid)
+        public Board(int[,] matrix)
         {
-            _rowsLength =  grid.GetLength(0);
-            _colsLength = grid.GetLength(1);
+            _rowsLength = matrix.GetLength(0);
+            _colsLength = matrix.GetLength(1);
+            _grid = ConvertToDictionary(matrix);
 
-            _grid = grid;
-
-            _boardRules = new Dictionary<CellState, IBoardRule>
+            _boardRules = new Dictionary<CellStateTypes, IBoardRule>
             {
                 {
-                    CellState.Live,
+                    CellStateTypes.Live,
                     new UnderPapulationRule(
                         new NextGenerationRule(
                             new OverPopulationRule(
                                 new ReturnStateRule())))
                 },
                 {
-                    CellState.Dead,
+                    CellStateTypes.Dead,
                     new ReproductionRule(
                         new ReturnStateRule())
                 }
             };
         }
 
-        public void ChangeCellState(Cell newCell)
+        private Dictionary<Cell, BordCell> ConvertToDictionary(int[,] matrix)
         {
-            _grid[newCell.Row, newCell.Col]  = newCell;
+            var grid = new Dictionary<Cell, BordCell>();
+            for (int i = 0; i < _rowsLength; i++)
+            {
+                for (int j = 0; j < _colsLength; j++)
+                {
+                    var state = (CellStateTypes)matrix[i, j];
+                    var boardCell = new BordCell(i, j, state);
+                    grid.Add(boardCell, boardCell);
+                }
+            }
+            return grid;
+        }
+
+        public void ChangeCellState(BordCell newCell)
+        {
+            _grid[newCell] = newCell;
         }
 
         public int[,] GetCurrentState()
         {
             var boardCurrentState = new int[_rowsLength, _colsLength];
 
-            for (int i = 0; i < _rowsLength; i++)
+            foreach (var g in _grid)
             {
-                for (int j = 0; j < _colsLength; j++)
-                {
-                    var cell = _grid[i, j];
-                    var liveNeighbors = GetNeighborsCountByState(cell);
-                    var rules = _boardRules[cell.State];
-                    var currentState = rules.Execute(cell.State, liveNeighbors);
-
-                    boardCurrentState[i, j] = Convert.ToInt32(currentState);
-                }
+                var liveNeighbors = GetNeighborsCountByState(g.Value);
+                var rules = _boardRules[g.Value.State];
+                var currentState = rules.Execute(g.Value.State, liveNeighbors);
+                //if (currentState == g.Value.State) continue;
+                boardCurrentState[g.Value.Row, g.Value.Col] = Convert.ToInt32(currentState);
             }
 
             return boardCurrentState;
         }
 
-        private int GetNeighborsCountByState(Cell cell, CellState cellState = CellState.Live)
+        private readonly static int[] OffsetVertical = { -1, -1, 0, 1, 1, 1, 0, -1 };
+        private readonly static int[] OffsetHrizontal = { 0, 1, 1, 1, 0, -1, -1, -1 };
+        private int GetNeighborsCountByState(BordCell cell, CellStateTypes cellState = CellStateTypes.Live)
         {
             int neighborsCountByState = 0;
 
             for (int i = 0; i < 8; i++)
             {
-                int ny = cell.Row + OffsetVertical[i];
+                int ny = cell.Row + OffsetVertical[i]; 
                 int nx = cell.Col + OffsetHrizontal[i];
 
-                if (nx>=0 && nx<_rowsLength && ny>=0 && ny<_colsLength)
+                if (nx>=0 && nx<_colsLength && ny>=0 && ny<_rowsLength)
                 {
-                    var neighborCell = _grid[nx, ny];
+                    var neighborCell = _grid[new Cell(ny, nx)];
                     if (neighborCell.State == cellState)
                     {
                         neighborsCountByState++;

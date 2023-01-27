@@ -11,11 +11,11 @@ namespace BoardStateEngine.Rules
             _nextBoardRule = nextBoardRule;
         }
 
-        public CellState Execute(CellState state, int liveNeighbors)
+        public CellStateTypes Execute(CellStateTypes state, int liveNeighbors)
         {
             ValidateLiveState(state);
 
-            if (liveNeighbors > 3) return CellState.Dead;
+            if (liveNeighbors > 3) return CellStateTypes.Dead;
             return _nextBoardRule.Execute(state, liveNeighbors);
         }
     }

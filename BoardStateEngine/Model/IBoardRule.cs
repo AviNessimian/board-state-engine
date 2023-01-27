@@ -2,22 +2,22 @@
 {
     public interface IBoardRule
     {
-        public CellState Execute(CellState state, int liveNeighbors);
+        public CellStateTypes Execute(CellStateTypes state, int liveNeighbors);
     }
 
 
     public abstract class BoardRule
     {
-        public virtual void ValidateLiveState(CellState state)
+        public virtual void ValidateLiveState(CellStateTypes state)
         {
-            if (state != CellState.Live)
-                throw new Exception($"Rule is for {CellState.Live} state only");
+            if (state != CellStateTypes.Live)
+                throw new Exception($"Rule is for {CellStateTypes.Live} state only");
         }
 
-        public virtual void ValidateDeadState(CellState state)
+        public virtual void ValidateDeadState(CellStateTypes state)
         {
-            if (state != CellState.Dead)
-                throw new Exception($"Rule is for {CellState.Dead} state only");
+            if (state != CellStateTypes.Dead)
+                throw new Exception($"Rule is for {CellStateTypes.Dead} state only");
         }
     }
 }
