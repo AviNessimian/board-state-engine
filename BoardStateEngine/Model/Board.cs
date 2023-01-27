@@ -1,5 +1,4 @@
 ﻿using BoardStateEngine.Rules;
-using System.Collections.Generic;
 using System.Text;
 
 namespace BoardStateEngine.Model
