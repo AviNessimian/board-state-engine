@@ -78,8 +78,10 @@ namespace BoardStateEngine.Model
             return sb.ToString();
         }
 
+
         private readonly static int[] OffsetVertical = { -1, -1, 0, 1, 1, 1, 0, -1 };
         private readonly static int[] OffsetHrizontal = { 0, 1, 1, 1, 0, -1, -1, -1 };
+
         private int GetNeighborsCountByState(BordCell cell, CellStateTypes cellState = CellStateTypes.Live)
         {
             int neighborsCountByState = 0;
