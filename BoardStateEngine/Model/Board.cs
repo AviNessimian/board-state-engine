@@ -32,19 +32,19 @@ namespace BoardStateEngine.Model
             };
         }
 
-        public int[,] GetCurrentState()
+        public int[,] GetNextState()
         {
-            var boardCurrentState = new int[_rowsLength, _colsLength];
+            var boardNextStates = new int[_rowsLength, _colsLength];
             var bordCellToUpdate = new List<BordCell>();
             foreach (var g in _grid)
             {
                 var liveNeighbors = GetNeighborsCountByState(g.Value);
                 var rules = _boardRules[g.Value.State];
-                var currentState = rules.Execute(g.Value.State, liveNeighbors);
-                boardCurrentState[g.Value.Row, g.Value.Col] = Convert.ToInt32(currentState);
+                var nextState = rules.Execute(g.Value.State, liveNeighbors);
+                boardNextStates[g.Value.Row, g.Value.Col] = Convert.ToInt32(nextState);
 
-                if (currentState == g.Value.State) continue;
-                bordCellToUpdate.Add(new BordCell(g.Value.Row, g.Value.Col, currentState));
+                if (nextState == g.Value.State) continue;
+                bordCellToUpdate.Add(new BordCell(g.Value.Row, g.Value.Col, nextState));
             }
 
             foreach (var cellToUpdate in bordCellToUpdate)
@@ -52,7 +52,7 @@ namespace BoardStateEngine.Model
                 ChangeCellState(cellToUpdate);
             }
 
-            return boardCurrentState;
+            return boardNextStates;
         }
 
         public void ChangeCellState(BordCell newCell)

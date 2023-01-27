@@ -11,7 +11,7 @@ var board = new Board(grid);
 Console.WriteLine("Input:");
 Console.WriteLine(board.ToString());
 
-var currentState = board.GetCurrentState();
+var nextStates = board.GetNextState();
 Console.WriteLine("Output:");
 Console.WriteLine(board.ToString());
 
