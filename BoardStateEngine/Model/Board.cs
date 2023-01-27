@@ -37,7 +37,6 @@ namespace BoardStateEngine.Model
             {
                 ChangeCellState(cellToUpdate);
             }
-
             return boardNextStates;
         }
 
@@ -70,7 +69,6 @@ namespace BoardStateEngine.Model
         private int GetNeighborsCountByState(BordCell cell, CellStateTypes cellState = CellStateTypes.Live)
         {
             int neighborsCountByState = 0;
-
             for (int i = 0; i < 8; i++)
             {
                 int ny = cell.Row + OffsetVertical[i];
@@ -85,7 +83,6 @@ namespace BoardStateEngine.Model
                     }
                 }
             }
-
             return neighborsCountByState;
         }
 
