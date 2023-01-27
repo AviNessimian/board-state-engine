@@ -1,4 +1,5 @@
 ﻿using BoardStateEngine.Rules;
+using System.Text;
 
 namespace BoardStateEngine.Model
 {
@@ -14,7 +15,6 @@ namespace BoardStateEngine.Model
             _rowsLength = matrix.GetLength(0);
             _colsLength = matrix.GetLength(1);
             _grid = ConvertToDictionary(matrix);
-
             _boardRules = new Dictionary<CellStateTypes, IBoardRule>
             {
                 {
@@ -30,26 +30,6 @@ namespace BoardStateEngine.Model
                         new ReturnStateRule())
                 }
             };
-        }
-
-        private Dictionary<Cell, BordCell> ConvertToDictionary(int[,] matrix)
-        {
-            var grid = new Dictionary<Cell, BordCell>();
-            for (int i = 0; i < _rowsLength; i++)
-            {
-                for (int j = 0; j < _colsLength; j++)
-                {
-                    var state = (CellStateTypes)matrix[i, j];
-                    var boardCell = new BordCell(i, j, state);
-                    grid.Add(boardCell, boardCell);
-                }
-            }
-            return grid;
-        }
-
-        public void ChangeCellState(BordCell newCell)
-        {
-            _grid[newCell] = newCell;
         }
 
         public int[,] GetCurrentState()
@@ -68,6 +48,28 @@ namespace BoardStateEngine.Model
             return boardCurrentState;
         }
 
+        public void ChangeCellState(BordCell newCell)
+        {
+            _grid[newCell] = newCell;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            int lineNum = 0;
+            foreach (var g in _grid)
+            {
+                if (g.Value.Row != 0 && g.Value.Row != lineNum)
+                {
+                    sb.AppendLine();
+                    lineNum++;
+                }
+                sb.Append(((int)g.Value.State).ToString());
+            }
+            sb.AppendLine();
+            return sb.ToString();
+        }
+
         private readonly static int[] OffsetVertical = { -1, -1, 0, 1, 1, 1, 0, -1 };
         private readonly static int[] OffsetHrizontal = { 0, 1, 1, 1, 0, -1, -1, -1 };
         private int GetNeighborsCountByState(BordCell cell, CellStateTypes cellState = CellStateTypes.Live)
@@ -76,7 +78,7 @@ namespace BoardStateEngine.Model
 
             for (int i = 0; i < 8; i++)
             {
-                int ny = cell.Row + OffsetVertical[i]; 
+                int ny = cell.Row + OffsetVertical[i];
                 int nx = cell.Col + OffsetHrizontal[i];
 
                 if (nx>=0 && nx<_colsLength && ny>=0 && ny<_rowsLength)
@@ -90,6 +92,21 @@ namespace BoardStateEngine.Model
             }
 
             return neighborsCountByState;
+        }
+
+        private Dictionary<Cell, BordCell> ConvertToDictionary(int[,] matrix)
+        {
+            var grid = new Dictionary<Cell, BordCell>();
+            for (int i = 0; i < _rowsLength; i++)
+            {
+                for (int j = 0; j < _colsLength; j++)
+                {
+                    var state = (CellStateTypes)matrix[i, j];
+                    var boardCell = new BordCell(i, j, state);
+                    grid.Add(boardCell, boardCell);
+                }
+            }
+            return grid;
         }
     }
 }

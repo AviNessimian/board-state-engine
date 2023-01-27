@@ -8,16 +8,15 @@ var grid = new int[4, 3]
     { 0, 0, 0 }
 };
 var board = new Board(grid);
-
+//Console.WriteLine(board.ToString());
 var currentState = board.GetCurrentState();
 Print(currentState);
 
-//board.ChangeCellState(new Cell(1, 1, CellState.Live));
+//board.ChangeCellState(new BordCell(1, 1, CellStateTypes.Live));
 //currentState = board.GetCurrentState();
 //Print(currentState);
 
 Console.ReadKey();
-
 
 static void Print(int[,] array)
 {
