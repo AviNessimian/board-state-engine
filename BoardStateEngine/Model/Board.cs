@@ -1,4 +1,5 @@
 ﻿using BoardStateEngine.Rules;
+using System.Collections.Generic;
 using System.Text;
 
 namespace BoardStateEngine.Model
@@ -35,13 +36,21 @@ namespace BoardStateEngine.Model
         public int[,] GetCurrentState()
         {
             var boardCurrentState = new int[_rowsLength, _colsLength];
-
+            var bordCellToUpdate = new List<BordCell>();
             foreach (var g in _grid)
             {
                 var liveNeighbors = GetNeighborsCountByState(g.Value);
                 var rules = _boardRules[g.Value.State];
                 var currentState = rules.Execute(g.Value.State, liveNeighbors);
                 boardCurrentState[g.Value.Row, g.Value.Col] = Convert.ToInt32(currentState);
+
+                if (currentState == g.Value.State) continue;
+                bordCellToUpdate.Add(new BordCell(g.Value.Row, g.Value.Col, currentState));
+            }
+
+            foreach (var cellToUpdate in bordCellToUpdate)
+            {
+                ChangeCellState(cellToUpdate);
             }
 
             return boardCurrentState;

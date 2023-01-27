@@ -8,24 +8,12 @@ var grid = new int[4, 3]
     { 0, 0, 0 }
 };
 var board = new Board(grid);
+Console.WriteLine(board.ToString());
 var currentState = board.GetCurrentState();
-Print(currentState);
+Console.WriteLine(board.ToString());
 
 //board.ChangeCellState(new BordCell(1, 1, CellStateTypes.Live));
 //currentState = board.GetCurrentState();
-//Print(currentState);
+//Console.WriteLine(board.ToString());
 
 Console.ReadKey();
-
-static void Print(int[,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            Console.Write("{0} ", array[i, j]);
-        }
-        Console.WriteLine();
-    }
-    Console.WriteLine();
-}
