@@ -42,8 +42,6 @@ namespace BoardStateEngine.Model
                 var rules = _boardRules[g.Value.State];
                 var currentState = rules.Execute(g.Value.State, liveNeighbors);
                 boardCurrentState[g.Value.Row, g.Value.Col] = Convert.ToInt32(currentState);
-
-                if (currentState == g.Value.State) continue;
             }
 
             return boardCurrentState;
