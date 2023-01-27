@@ -6,30 +6,16 @@ namespace BoardStateEngine.Model
     public class Board
     {
         private readonly Dictionary<Cell, BordCell> _grid;
-        private readonly Dictionary<CellStateTypes, IBoardRule> _boardRules;
+        private readonly Dictionary<CellStateTypes, IBoardRule> _rules;
         private readonly int _rowsLength;
         private readonly int _colsLength;
 
-        public Board(int[,] matrix)
+        public Board(int[,] matrix, Dictionary<CellStateTypes, IBoardRule> rules)
         {
             _rowsLength = matrix.GetLength(0);
             _colsLength = matrix.GetLength(1);
             _grid = ConvertToDictionary(matrix);
-            _boardRules = new Dictionary<CellStateTypes, IBoardRule>
-            {
-                {
-                    CellStateTypes.Live,
-                    new UnderPapulationRule(
-                        new NextGenerationRule(
-                            new OverPopulationRule(
-                                new ReturnStateRule())))
-                },
-                {
-                    CellStateTypes.Dead,
-                    new ReproductionRule(
-                        new ReturnStateRule())
-                }
-            };
+            _rules = rules;
         }
 
         public int[,] GetNextState()
@@ -39,7 +25,7 @@ namespace BoardStateEngine.Model
             foreach (var g in _grid)
             {
                 var liveNeighbors = GetNeighborsCountByState(g.Value);
-                var rules = _boardRules[g.Value.State];
+                var rules = _rules[g.Value.State];
                 var nextState = rules.Execute(g.Value.State, liveNeighbors);
                 boardNextStates[g.Value.Row, g.Value.Col] = Convert.ToInt32(nextState);
 
