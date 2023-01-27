@@ -8,7 +8,6 @@ var grid = new int[4, 3]
     { 0, 0, 0 }
 };
 var board = new Board(grid);
-//Console.WriteLine(board.ToString());
 var currentState = board.GetCurrentState();
 Print(currentState);
 
