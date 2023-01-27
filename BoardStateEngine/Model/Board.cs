@@ -4,7 +4,7 @@ namespace BoardStateEngine.Model
 {
     public class Board
     {
-        private readonly Dictionary<Cell, BordCell> _grid;
+        private readonly Dictionary<BordCell, BordCell> _grid;
         private readonly Dictionary<CellStateTypes, IBoardRule> _rules;
         private readonly int _rowsLength;
         private readonly int _colsLength;
@@ -75,8 +75,7 @@ namespace BoardStateEngine.Model
 
                 if (nx>=0 && nx<_colsLength && ny>=0 && ny<_rowsLength)
                 {
-                    var neighborCell = _grid[new Cell(ny, nx)];
-                    if (neighborCell.State == cellState)
+                    if(_grid.ContainsKey(new BordCell(ny, nx, cellState)))
                     {
                         neighborsCountByState++;
                     }
@@ -85,9 +84,9 @@ namespace BoardStateEngine.Model
             return neighborsCountByState;
         }
 
-        private Dictionary<Cell, BordCell> ConvertToDictionary(int[,] matrix)
+        private Dictionary<BordCell, BordCell> ConvertToDictionary(int[,] matrix)
         {
-            var grid = new Dictionary<Cell, BordCell>();
+            var grid = new Dictionary<BordCell, BordCell>();
             for (int i = 0; i < _rowsLength; i++)
             {
                 for (int j = 0; j < _colsLength; j++)
