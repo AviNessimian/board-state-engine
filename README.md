@@ -32,3 +32,11 @@ Output:
 ]
 ```
 
+```
+Consider:
+OO
+Design
+SOLID
+efficiency
+complexity
+```
