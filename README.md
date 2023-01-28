@@ -13,6 +13,7 @@ Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) us
 The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously. 
 Given the current state of the m x n grid board, return the next state. 
 
+```
 Input: board =
 [
 [0,1,0],
@@ -20,7 +21,8 @@ Input: board =
 [1,1,1],
 [0,0,0]
 ]
-
+```
+```
 Output:
 [
 [0,0,0],
@@ -28,4 +30,5 @@ Output:
 [0,1,1],
 [0,1,0]
 ]
+```
 
