@@ -32,11 +32,10 @@ Output:
 ]
 ```
 
-```
+***
 Consider:
-OO
-Design
-SOLID
-efficiency
-complexity
-```
+* OOP 
+* Design
+* SOLID
+* Complexity
+
