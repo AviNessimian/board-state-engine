@@ -29,5 +29,3 @@ Output:
 [0,1,0]
 ]
 
-
-![exercise](Exercise.png)
