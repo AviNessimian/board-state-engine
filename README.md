@@ -38,4 +38,3 @@ Consider:
 * Design
 * SOLID
 * Complexity
-
