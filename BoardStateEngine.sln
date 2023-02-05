@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardStateEngine", "BoardStateEngine\BoardStateEngine.csproj", "{F232B145-2219-4DFD-B8B6-22439FE2E436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardStateEngine", "BoardStateEngine\BoardStateEngine.csproj", "{F232B145-2219-4DFD-B8B6-22439FE2E436}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9886061-5F35-4B94-A45E-960241FAFE6D}"
 	ProjectSection(SolutionItems) = preProject
 		Exercise.png = Exercise.png
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardStateEngine.UnitTests", "BoardStateEngine.UnitTests\BoardStateEngine.UnitTests.csproj", "{B8AD30A2-706B-46EF-A1F7-AD9ED022A70B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{F232B145-2219-4DFD-B8B6-22439FE2E436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F232B145-2219-4DFD-B8B6-22439FE2E436}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F232B145-2219-4DFD-B8B6-22439FE2E436}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8AD30A2-706B-46EF-A1F7-AD9ED022A70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8AD30A2-706B-46EF-A1F7-AD9ED022A70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8AD30A2-706B-46EF-A1F7-AD9ED022A70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8AD30A2-706B-46EF-A1F7-AD9ED022A70B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
